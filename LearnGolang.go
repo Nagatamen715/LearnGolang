@@ -25,3 +25,6 @@ func main() {
 	// Call another function within this package.
 	beyondHello()
 }
+
+// Functions have parameters in parentheses.
+// If there are no parameters, empty parentheses are still required.
