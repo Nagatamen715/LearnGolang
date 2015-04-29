@@ -108,3 +108,67 @@ literal can include line breaks.`	// Same string type.
 	
 	learnFlowControl() // Back in the flow
 }
+
+// It is possible, unlike in many other languages for functions in go
+// to have named return values.
+// Assuming a name to the type being returned in the function declarations line
+// allows us to easily return from multiple points in a function as well as to
+// only use the return keyword, without anything further.
+func learnNamedReturns(x, y int) (z int) {
+	z = x * y
+	return	// z is implicit here, because we named it earlier.
+}
+
+// Go is fully garbage collected. It has pointers but no pointer arithmetic
+// You can make a mistake with a nil pointer, but not by incrementing a pointer.
+func learnMemory() (p, q *int ) {
+	// Named return values p and q have type pointer to int.
+	p = new(int )	// Built-in function new allocates memory.
+	// The allocated int is initialized to 0, p is no longer nil.
+	s := make([]int, 20)	// Allocate 20 ints as a single block of memory.
+	s[3] = 7				// Assign one of them.
+	r := -2 				// Declare another local variable.
+	return &s[3], &r		// & takes the address of an object.
+}
+
+func expensiveComputation() float64 {
+	return m.Exp(10)
+}
+
+func learnFlowControl() {
+	// If statements require brace brackets, and do not require parens.
+	if true {
+		fmt.Println("told ya")
+	}
+	// Formatting is standardized by the command line command "go fmt"
+	if false {
+		// Pout.
+	} else {
+		// Gloat.
+	}
+	// Use switch in preference to chained if statements.
+	x := 42.0
+	switch x {
+	case 0:
+	case 1:
+	case 42:
+		// Cases don't "fall through".
+	case 43:
+		// Unreached.
+	}
+	// Like if, for doesn't use parens either.
+	// Variables declared in for and if are local to their scope.
+	for x:= 0; x < 3; x++ {	// ++ is a statement.
+		fmt.Println("iteration", x)
+	}
+	// x == 42 here.
+	
+	// For is the only loop statement in Go, but it has alternate forms.
+	for {	// Infinite loop.
+		break		// Just kidding.
+		continue	// Unreached.	
+	}
+	
+	// You can use range to iterate over an array, a slice, a string, a map, or a channel.
+	// range returns one (channel) or two values (array, slice, string and map).
+}
