@@ -171,4 +171,67 @@ func learnFlowControl() {
 	
 	// You can use range to iterate over an array, a slice, a string, a map, or a channel.
 	// range returns one (channel) or two values (array, slice, string and map).
+	for key, value := range map[string]int{"one": 1, "two": 2, "three": 3}{
+		// for each pair in the map, print key and value
+		fmt.Printf("key=%s, value=%d\n", key, value)
+	}
+	
+	// As with for, := in an if statement means to declare and assign
+	// y first, then test y > x.
+	if y := expensiveComputation(); y > x {
+		x = y 
+	}
+	// Function literals are closures.
+	xBig := func() bool {
+		return x > 10000	// References x declared above switch statement
+	}
+	fmt.Println("xBig:", xBig())	// true (we last assigned e^10 to x).
+	x = 1.3e3						// This makes x == 1300
+	fmt.Println("xBig:", xBig())	// false now.
+	
+	// What's more is function literals may be defined and called inline,
+	// acting as an argument to function, as long as:
+	// a) function literal is called immediately (),
+	// b) result type matches expected type of argument.
+	fmt.Println("Add + double two numbers: ",
+		func (a, b int) int {
+			return (a + b) * 2
+		}(10, 2))	// Called with args 10 and 2 
+	// => Add + double two numbers: 24
+
+	// When you need it, you'll love it.
+	goto love
+love:
+	
+	learnFunctionFactory()	// func returning func if fun(3)(3)
+	learnDefer()		// A quick detour to an important keyword.
+	learnInterfaces()	// Good stuff coming up!
 }
+
+func learnFunctionFactory() {
+	// Next two are equivalent, with second being more practical
+	fmt.Println(sentenceFactory("summer")("A beautiful", "day!"))
+	
+	d := sentenceFactory("summer")
+	fmt.Println(d("A beautiful", "day!"))
+	fmt.Println(d("A lazy", "afternoon!"))
+}
+
+// Decorators are common in other languages. Same can be done in Go
+// with function literals that accept arguments.
+func sentenceFactory(mystring string) func(before, after string) string {
+	return func(before, after string) string {
+		return fmt.Sprintf("%s %s %s", before, mystring, after)	// new string
+	}
+}
+
+func learnDefer() (ok bool) {
+	// Deferred statements are executed just before the function returns.
+	defer fmt.Println("deferred statements execute in reverse (LIFO) order.")
+	defer fmt.Println("\nThis line is being printed first because")
+	// Defer is commonly used to close a file, so the function closing the
+	// file stays close to the function opening the file.
+	return true
+}
+
+
