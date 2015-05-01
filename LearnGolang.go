@@ -234,4 +234,48 @@ func learnDefer() (ok bool) {
 	return true
 }
 
+// Define Stringer as an interface type with one method, String.
+type Stringer interface {
+	String() string
+}
+
+// Define pair as a struct with two fields, ints named x and y.
+type pair struct {
+	x, y int
+}
+
+// Define a method on type pair. Pair now implements Stringer.
+func (p pair) String() string {	// p is called the "receiver"
+	// Sprintf is another public function in package fmt.
+	// Dot syntax references fields of p.
+	return fmt.Sprintf("(%d, %d)", p.x, p.y)
+}
+
+func learnInterfaces() {
+	// Brace syntax is a "struct literal". It evaluates to an initialized
+	// struct. The := syntax declares and initializes p to this struct.
+	p := pair{3, 4}
+	fmt.Println(p.String())	// Call String method of p, of type pair.
+	var i Stringer			// Declare i of interface type Stringer.
+	i = p					// Valid because pair implements Stringer
+	// Call String method of i, of type Stringer. Output same as above.
+	fmt.Println(i.String())
+	
+	learnVariadicParams("great", "learning", "here!")
+}
+
+// Functions can have variadic parameters.
+func learnVariadicParams(myStrings ...interface{}){
+	// Iterate each value of the variadic.
+	// The underbar here is ignoring the index argument of the array.
+	for _, param := range myStrings {
+		fmt.Println("param:", param)
+	}
+	
+	// Pass variadic value as a variadic parameter.
+	fmt.Println("param:", fmt.Sprintln(myStrings...))
+	
+	learnErrorHandling()
+}
+
 
