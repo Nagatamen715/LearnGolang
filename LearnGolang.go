@@ -292,7 +292,7 @@ func learnErrorHandling() {
 		fmt.Println(err)
 	}
 	// We'll revisit interfaces a little later. Meanwhile,
-	learnConcurreny()
+	learnConcurrency()
 }
 
 // c is a channel, a concurrency-safe communication object.
